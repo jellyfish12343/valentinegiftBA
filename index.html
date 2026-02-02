@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Endless Roses</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* PAGE 1 – ROSES */
+    .rose-page {
+      min-height: 300vh;
+      background: radial-gradient(circle at center, #ffb6c1, #ff4d6d);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: flex-start;
+      padding: 10px;
+      gap: 4px;
+    }
+
+    .rose {
+      font-size: 32px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    .black-rose-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 200px;
+    }
+
+    .black-rose {
+      font-size: 36px; /* smaller, closer to normal roses */
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .black-rose:hover {
+      transform: scale(1.2);
+    }
+
+    /* PAGE 2 – VALENTINE */
+    .valentine-page {
+      display: none;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      color: #b3003b;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .valentine-page h1 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 30px;
+    }
+
+    button {
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
+    .yes {
+      background: #ff3366;
+      color: white;
+    }
+
+    .no {
+      background: #fff;
+      color: #ff3366;
+      position: relative;
+    }
+
+    .no:hover::after {
+      content: 'Choose again';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.9rem;
+      color: #b3003b;
+    }
+
+    .no:hover {
+      transform: translateX(20px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 1 -->
+  <div class="rose-page" id="rosePage"></div>
+
+  <!-- PAGE 2 -->
+  <div class="valentine-page" id="valentinePage">
+    <h1>💖 Bheeni Agarwal, will you be my Valentine? 💖</h1>
+    <div class="buttons">
+      <button class="yes" onclick="celebrate()">Yes</button>
+      <button class="no">No</button>
+    </div>
+  </div>
+
+  <script>
+    const rosePage = document.getElementById('rosePage');
+    const valentinePage = document.getElementById('valentinePage');
+
+    // Generate endless roses with hidden black rose
+    const totalRoses = 220;
+    const hiddenIndex = Math.floor(totalRoses * 0.55); // somewhere in between
+
+    for (let i = 0; i < totalRoses; i++) {
+      if (i === hiddenIndex) {
+        const blackRose = document.createElement('div');
+        blackRose.className = 'black-rose';
+        blackRose.textContent = '🥀';
+        blackRose.onclick = () => {
+          rosePage.style.display = 'none';
+          valentinePage.style.display = 'flex';
+        };
+        rosePage.appendChild(blackRose);
+      }
+
+      const r = document.createElement('div');
+      r.className = 'rose';
+      r.textContent = '🌹';
+      rosePage.appendChild(r);
+    }
+  
+    function celebrate() {
+      valentinePage.innerHTML = `
+        <h1>🎉 Yayyy Bheeni Agarwal! 🎉</h1>
+        <p style="font-size:1.5rem;margin-top:20px;">You just made this page very happy 💕</p>
+        <div style="font-size:60px;margin-top:40px;">🎉 🎊 🥳 🎉 🎊</div>
+      `;
+      document.body.style.background = 'linear-gradient(135deg, #ffdde1, #ee9ca7)';
+    }
+  </script>
+
+</body>
+</html>
+
